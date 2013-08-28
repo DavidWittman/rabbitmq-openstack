@@ -42,7 +42,7 @@ node.set["rabbitmq"]["use_distro_version"] = true
 
 # need to build out [rabbitmq][cluster_disk_nodes] from a search of the nodes
 # that include the rabbitmq-server role
-node.set["rabbitmq"]["cluster_disk_nodes"] = osops_search(search_string="rabbitmq-server",one_or_all=:all,include_me=true,order=[:role]).map(&:hostname).map! { |k| "rabbit@#{k}" }
+node.set["rabbitmq"]["cluster_disk_nodes"] = osops_search("rabbitmq-server", :all, order=[:role]).map { |n| "rabbit@#{n.hostname}" }
 
 include_recipe "rabbitmq::default"
 
